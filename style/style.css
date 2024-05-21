@@ -32,6 +32,11 @@ button{
   width: 550px;
   margin: 0 auto;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-end;
+  align-items: flex-end;
+  padding: 20px;
 }
 .btn-container{
     border: 2px solid gray;
