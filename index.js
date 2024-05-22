@@ -1,14 +1,11 @@
-const digits = document.querySelector(".left");
-const operators = document.querySelector(".right");
-const operatorsBtn = operators.querySelectorAll("button");
-const digitBtn = digits.querySelectorAll("button");
+const operatorsBtn = document.querySelectorAll(".right>button");
+const digitBtn = document.querySelectorAll(".digit");
 const displayCurrent = document.querySelector(".current");
 const displayPrevious = document.querySelector(".previous");
-const clearBtn = document.querySelector(".clear");
 const equalsBtn = document.querySelector(".equal");
 let currentNumber = "";
 let previousNumber = "";
-let operator = null;
+let operator = "";
 
 const add = function (num1, num2) {
   return num1 + num2;
@@ -22,51 +19,82 @@ const multiply = function (num1, num2) {
 const divide = function (num1, num2) {
   return num1 / num2;
 };
-const clear = function () {
+const allClear = function () {
   currentNumber = "";
   previousNumber = "";
-  displayCurrent.textContent = null;
-  displayPrevious.textContent = null;
-  operator = undefined;
+  operator = "";
 };
-const displaySecondNumber = function (operat) {
-  operator = operat;
+const clear = function () {
+  currentNumber = currentNumber.toString().slice(0, -1);
+};
+const chooseOpeator = function (operat) {
   if (previousNumber !== "") {
     operate();
   }
+  operator = operat;
   previousNumber = currentNumber;
   currentNumber = "";
-  displayCurrent.textContent = "";
-  displayPrevious.textContent = `${previousNumber} ${operator}`;
 };
 
-const displayFirstNumber = function (number) {
+const appendNumber = function (number) {
   if (number === "." && currentNumber.includes(".")) return;
   currentNumber = currentNumber.toString() + number.toString();
-  displayCurrent.textContent = currentNumber;
 };
-
-const operate = function () {};
+const updateDisplay = function () {
+  displayCurrent.innerHTML = currentNumber;
+  displayPrevious.innerHTML = `${previousNumber} ${operator}`;
+};
+const operate = function () {
+  let computation;
+  let current = +currentNumber;
+  let previous = +previousNumber;
+  if (isNaN(current) || isNaN(previous)) return;
+  switch (operator) {
+    case "+":
+      computation = add(current, previous);
+      break;
+    case "-":
+      computation = subtract(previous, current);
+      break;
+    case "×":
+      computation = multiply(previous, current);
+      break;
+    case "÷":
+      computation = divide(previous, current);
+      break;
+    default:
+      return;
+  }
+  currentNumber = computation;
+  previousNumber = "";
+  operator = "";
+};
 
 digitBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.textContent === "Clear") {
-      clear();
-      return;
-    }
-    let number = button.textContent;
-
-    displayFirstNumber(number);
+    appendNumber(button.textContent);
+    updateDisplay();
   });
 });
 
 operatorsBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
-    if (btn.textContent === "=") return;
-    displaySecondNumber(btn.textContent);
+    if (btn.textContent === "AC") {
+      allClear();
+      updateDisplay();
+      return;
+    } else if (btn.textContent === "C") {
+      clear();
+      updateDisplay();
+      return;
+    } else {
+      chooseOpeator(btn.textContent);
+      updateDisplay();
+    }
   });
 });
 
 equalsBtn.addEventListener("click", () => {
   operate();
+  updateDisplay();
 });
