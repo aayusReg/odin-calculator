@@ -8,9 +8,10 @@ button{
     text-align: center;
     width: 80px;
     height: 80px;
+    font-size: 25px;
 }
 h1{
-  color: gainsboro;
+  color: rgb(148, 146, 146);
   font-size: 40px;
 }
 
@@ -41,6 +42,12 @@ h1{
   padding: 20px;
   word-wrap: break-word;
   word-break: break-all;
+}
+.display>.current{
+  font-size: 30px;
+}
+.display>.previous{
+  color: darkgray;
 }
 .btn-container{
     border: 2px solid gray;
