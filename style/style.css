@@ -7,11 +7,13 @@ button{
     padding: 5px;
     text-align: center;
     width: 80px;
+    height: 80px;
 }
-.left>button{
-    margin-bottom: 8px;
-    margin-right: 8px;
+h1{
+  color: gainsboro;
+  font-size: 40px;
 }
+
 .main {
   background-color: aliceblue;
   padding: 200px;
@@ -37,6 +39,8 @@ button{
   justify-content:flex-end;
   align-items: flex-end;
   padding: 20px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 .btn-container{
     border: 2px solid gray;
@@ -48,15 +52,4 @@ button{
 
 }
 
-.left{
-   width: 500px;
-   justify-content: space-between;
-   align-items: center;
-   margin-left: 50px;
-}
-.right{
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    gap:8px
-}
+
