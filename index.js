@@ -90,6 +90,7 @@ operatorsBtn.forEach((btn) => {
     } else {
       chooseOpeator(btn.textContent);
       updateDisplay();
+      return;
     }
   });
 });
